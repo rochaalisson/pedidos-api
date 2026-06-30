@@ -1,0 +1,2760 @@
+{
+	"info": {
+		"_postman_id": "2eb45691-7e27-4ebc-883e-d7b76d6d5915",
+		"name": "Raízes do Nordeste — API de Pedidos",
+		"description": "API REST para gestão de pedidos da rede de lanchonetes Raízes do Nordeste. Trabalho acadêmico UNINTER — Projeto Multidisciplinar Back-End 2026.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15022573"
+	},
+	"item": [
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "Listar usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						},
+						"description": "Retorna todos os usuários cadastrados. Requer perfil ADMIN."
+					},
+					"response": [
+						{
+							"name": "Lista retornada com sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<long>\",\n    \"nome\": \"<string>\",\n    \"email\": \"<string>\",\n    \"perfil\": \"<string>\",\n    \"unidadeId\": \"<long>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"nome\": \"<string>\",\n    \"email\": \"<string>\",\n    \"perfil\": \"<string>\",\n    \"unidadeId\": \"<long>\"\n  }\n]"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Sem permissão (requer ADMIN)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cadastrar usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						},
+						"description": "Cria um novo funcionário da rede. Senha é armazenada com BCrypt. Requer perfil ADMIN."
+					},
+					"response": [
+						{
+							"name": "Usuário cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"email\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}"
+						},
+						{
+							"name": "Dados inválidos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Sem permissão (requer ADMIN)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "E-mail já cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"nome\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"senha\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Buscar usuário por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna os dados de um usuário específico. Requer perfil ADMIN."
+					},
+					"response": [
+						{
+							"name": "Usuário encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"email\": \"<string>\",\n  \"perfil\": \"<string>\",\n  \"unidadeId\": \"<long>\"\n}"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Sem permissão (requer ADMIN)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Usuário não encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "pedidos",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Tentar pagamento novamente",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/pedidos/:id/pagar?formaPagamento=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos",
+										":id",
+										"pagar"
+									],
+									"query": [
+										{
+											"key": "formaPagamento",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Processa uma nova tentativa de pagamento para pedidos com status PAGAMENTO_RECUSADO."
+							},
+							"response": [
+								{
+									"name": "Nova tentativa de pagamento processada",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/pagar?formaPagamento=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"pagar"
+											],
+											"query": [
+												{
+													"key": "formaPagamento",
+													"value": "<string>"
+												}
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"pedidoId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"total\": \"<number>\"\n}"
+								},
+								{
+									"name": "Pedido não encontrado",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/pagar?formaPagamento=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"pagar"
+											],
+											"query": [
+												{
+													"key": "formaPagamento",
+													"value": "<string>"
+												}
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+								},
+								{
+									"name": "Pedido expirado, status inválido ou estoque indisponível",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/pagar?formaPagamento=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"pagar"
+											],
+											"query": [
+												{
+													"key": "formaPagamento",
+													"value": "<string>"
+												}
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Atualizar status do pedido",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"status\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pedidos/:id/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos",
+										":id",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Altera o status de preparação ou pagamento de um pedido existente."
+							},
+							"response": [
+								{
+									"name": "Status atualizado com sucesso",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"pedidoId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"total\": \"<number>\"\n}"
+								},
+								{
+									"name": "Corpo da requisição inválido",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+								},
+								{
+									"name": "Pedido não encontrado",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+								},
+								{
+									"name": "Status não reconhecido pelas regras de negócio",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pedidos/:id/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pedidos",
+												":id",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Listar pedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/pedidos?canalPedido=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pedidos"
+							],
+							"query": [
+								{
+									"key": "canalPedido",
+									"value": "<string>"
+								}
+							]
+						},
+						"description": "Retorna todos os pedidos. Use o parâmetro opcional `canalPedido` para filtrar por canal de atendimento (APP, TOTEM, BALCAO, PICKUP, WEB)."
+					},
+					"response": [
+						{
+							"name": "Lista retornada com sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/pedidos?canalPedido=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									],
+									"query": [
+										{
+											"key": "canalPedido",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<long>\",\n    \"status\": \"<string>\",\n    \"canal\": \"<string>\",\n    \"valorTotal\": \"<number>\",\n    \"dataCriacao\": \"<dateTime>\",\n    \"unidadeId\": \"<long>\",\n    \"clienteId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"status\": \"<string>\",\n    \"canal\": \"<string>\",\n    \"valorTotal\": \"<number>\",\n    \"dataCriacao\": \"<dateTime>\",\n    \"unidadeId\": \"<long>\",\n    \"clienteId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  }\n]"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/pedidos?canalPedido=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									],
+									"query": [
+										{
+											"key": "canalPedido",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Criar um novo pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"unidadeId\": \"<long>\",\n  \"clienteId\": \"<long>\",\n  \"canal\": \"<string>\",\n  \"formaPagamento\": \"<string>\",\n  \"usarPontos\": \"<boolean>\",\n  \"itens\": [\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    },\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pedidos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pedidos"
+							]
+						},
+						"description": "Registra um novo pedido, abate o estoque da unidade solicitada e simula o processamento do pagamento."
+					},
+					"response": [
+						{
+							"name": "Pedido criado e processado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"unidadeId\": \"<long>\",\n  \"clienteId\": \"<long>\",\n  \"canal\": \"<string>\",\n  \"formaPagamento\": \"<string>\",\n  \"usarPontos\": \"<boolean>\",\n  \"itens\": [\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    },\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pedidoId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"total\": \"<number>\"\n}"
+						},
+						{
+							"name": "Dados de requisição inválidos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"unidadeId\": \"<long>\",\n  \"clienteId\": \"<long>\",\n  \"canal\": \"<string>\",\n  \"formaPagamento\": \"<string>\",\n  \"usarPontos\": \"<boolean>\",\n  \"itens\": [\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    },\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Unidade ou Produto não encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"unidadeId\": \"<long>\",\n  \"clienteId\": \"<long>\",\n  \"canal\": \"<string>\",\n  \"formaPagamento\": \"<string>\",\n  \"usarPontos\": \"<boolean>\",\n  \"itens\": [\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    },\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Regra de negócio violada (ex: estoque insuficiente)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"unidadeId\": \"<long>\",\n  \"clienteId\": \"<long>\",\n  \"canal\": \"<string>\",\n  \"formaPagamento\": \"<string>\",\n  \"usarPontos\": \"<boolean>\",\n  \"itens\": [\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    },\n    {\n      \"produtoId\": \"<long>\",\n      \"quantidade\": \"<integer>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pedidos"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "estoque/{produtoUnidadeId}",
+			"item": [
+				{
+					"name": "Consultar saldo de estoque",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/estoque/:produtoUnidadeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estoque",
+								":produtoUnidadeId"
+							],
+							"variable": [
+								{
+									"key": "produtoUnidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna o saldo atual de um produto em uma unidade."
+					},
+					"response": [
+						{
+							"name": "Saldo retornado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"produtoId\": \"<long>\",\n  \"unidadeId\": \"<long>\",\n  \"quantidadeEstoque\": \"<integer>\",\n  \"disponivelCardapio\": \"<boolean>\"\n}"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Produto/Unidade não encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Registrar saída manual de estoque",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estoque",
+								":produtoUnidadeId",
+								"saida"
+							],
+							"variable": [
+								{
+									"key": "produtoUnidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Remove unidades do estoque (perda, descarte, ajuste). Requer perfil GERENTE ou ADMIN."
+					},
+					"response": [
+						{
+							"name": "Saída registrada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"produtoId\": \"<long>\",\n  \"unidadeId\": \"<long>\",\n  \"quantidadeEstoque\": \"<integer>\",\n  \"disponivelCardapio\": \"<boolean>\"\n}"
+						},
+						{
+							"name": "Dados inválidos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Sem permissão (requer GERENTE ou ADMIN)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Produto/Unidade não encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Estoque insuficiente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/saida",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"saida"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Registrar entrada de estoque",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estoque",
+								":produtoUnidadeId",
+								"entrada"
+							],
+							"variable": [
+								{
+									"key": "produtoUnidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Adiciona unidades ao estoque de um produto em uma unidade. Requer perfil GERENTE ou ADMIN."
+					},
+					"response": [
+						{
+							"name": "Entrada registrada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"entrada"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"produtoId\": \"<long>\",\n  \"unidadeId\": \"<long>\",\n  \"quantidadeEstoque\": \"<integer>\",\n  \"disponivelCardapio\": \"<boolean>\"\n}"
+						},
+						{
+							"name": "Dados inválidos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"entrada"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Não autenticado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"entrada"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Sem permissão (requer GERENTE ou ADMIN)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"entrada"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						},
+						{
+							"name": "Produto/Unidade não encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"quantidade\": \"<integer>\",\n  \"motivo\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/estoque/:produtoUnidadeId/entrada",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estoque",
+										":produtoUnidadeId",
+										"entrada"
+									],
+									"variable": [
+										{
+											"key": "produtoUnidadeId",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Autenticar usuário",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"<email>\",\n  \"senha\": \"<string>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Valida as credenciais e retorna um token JWT para acesso aos endpoints protegidos."
+			},
+			"response": [
+				{
+					"name": "Autenticação bem-sucedida",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"<email>\",\n  \"senha\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"token\": \"<string>\",\n  \"tipo\": \"<string>\",\n  \"email\": \"<string>\"\n}"
+				},
+				{
+					"name": "Dados de requisição inválidos",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"<email>\",\n  \"senha\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+				},
+				{
+					"name": "Credenciais inválidas",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"<email>\",\n  \"senha\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Consultar cardápio da unidade",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cardapio/unidades/:unidadeId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cardapio",
+						"unidades",
+						":unidadeId"
+					],
+					"variable": [
+						{
+							"key": "unidadeId",
+							"value": "<long>",
+							"description": "(Required) "
+						}
+					]
+				},
+				"description": "Retorna os produtos disponíveis agrupados por categoria para a unidade informada."
+			},
+			"response": [
+				{
+					"name": "Cardápio retornado com sucesso",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>",
+								"description": "Added as a part of security scheme: bearer"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cardapio/unidades/:unidadeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cardapio",
+								"unidades",
+								":unidadeId"
+							],
+							"variable": [
+								{
+									"key": "unidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"nomeCategoria\": \"<string>\",\n    \"produtos\": [\n      {\n        \"id\": \"<long>\",\n        \"nome\": \"<string>\",\n        \"descricao\": \"<string>\",\n        \"preco\": \"<number>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"nome\": \"<string>\",\n        \"descricao\": \"<string>\",\n        \"preco\": \"<number>\"\n      }\n    ]\n  },\n  {\n    \"nomeCategoria\": \"<string>\",\n    \"produtos\": [\n      {\n        \"id\": \"<long>\",\n        \"nome\": \"<string>\",\n        \"descricao\": \"<string>\",\n        \"preco\": \"<number>\"\n      },\n      {\n        \"id\": \"<long>\",\n        \"nome\": \"<string>\",\n        \"descricao\": \"<string>\",\n        \"preco\": \"<number>\"\n      }\n    ]\n  }\n]"
+				},
+				{
+					"name": "Não autenticado",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>",
+								"description": "Added as a part of security scheme: bearer"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cardapio/unidades/:unidadeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cardapio",
+								"unidades",
+								":unidadeId"
+							],
+							"variable": [
+								{
+									"key": "unidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+				},
+				{
+					"name": "Unidade não encontrada",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <token>",
+								"description": "Added as a part of security scheme: bearer"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cardapio/unidades/:unidadeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cardapio",
+								"unidades",
+								":unidadeId"
+							],
+							"variable": [
+								{
+									"key": "unidadeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timestamp\": \"<dateTime>\",\n  \"path\": \"<string>\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
